@@ -1,3 +1,3 @@
-int main() {
+nt main() {
 	return 0;
 }

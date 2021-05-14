@@ -10,17 +10,6 @@ public:
 		sAppName = "Galactic Map";
 	}
 public:
-	//Accel = speed/frame
-	double gravityAccel = 0.4;
-
-	double ballXPos = 32.0;
-	double ballYPos = 32.0;
-
-	double ballVertSpeed = 0;
-
-	int ballSize = 10;
-
-public:
 	bool OnUserCreate() override
 	{
 		return true;
@@ -28,43 +17,9 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
-		/* Horizontal Traverse */
-		if (GetKey(olc::Key::A).bHeld) {
-			if (ballXPos < 10.0)
-				ballXPos = ScreenWidth() - 10.0;
-			else
-				ballXPos -= 4.0;
-		}
-		if (GetKey(olc::Key::D).bHeld) {
-			if (ballXPos > ScreenWidth() - 10.0)
-				ballXPos = 10.0;
-			else
-				ballXPos += 4.0;
-		}
-
-		ballYPos -= ballVertSpeed;
-
-		/* Jump */
-		if (ballYPos > (double)ScreenHeight() - 11 - ballSize) {//Makes sure operation occurs at ground level
-			ballYPos = (double)ScreenHeight() - 10.0 - ballSize;
-			ballVertSpeed = (ballVertSpeed * .4) * -1.0;
-			if (GetKey(olc::Key::W).bHeld) {
-				ballVertSpeed += 8.0;
-			}
-		}
-		if (ballYPos < (double)ScreenHeight() - 10.0 - ballSize) {
-			ballVertSpeed -= gravityAccel;
-		}
-
-
-		Clear(olc::BLACK);
-
-		DrawLine(10, 10, ScreenWidth() - 10, 10, olc::WHITE);
-		DrawLine(10, ScreenHeight() - 10, 10, 10, olc::WHITE);
-		DrawLine(10, ScreenHeight() - 10, ScreenWidth() - 10, ScreenHeight() - 10, olc::WHITE);
-		DrawLine(ScreenWidth() - 10, 10, ScreenWidth() - 10, ScreenHeight() - 10, olc::WHITE);
-
-		FillCircle(ballXPos, ballYPos, ballSize, olc::WHITE);
+        for (int x = 0; x < ScreenWidth(); x++)
+            for (int y = 0; y < ScreenHeight(); y++)
+                Draw(x, y, olc::Pixel(rand() % 255, rand() % 255, rand()% 255));
 		return true;
 	}
 	
