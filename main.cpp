@@ -19,7 +19,6 @@ public:
 	double ballVertSpeed = 0;
 
 	int ballSize = 10;
-	//star::Star stars[NUMBER_OF_STARS];
 
 public:
 	bool OnUserCreate() override
