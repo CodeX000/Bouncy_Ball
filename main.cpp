@@ -1,6 +1,5 @@
 #define OLC_PGE_APPLICATION
 #include "olcPixelGameEngine.h"
-#include "../galacticMap/galacticMap/star.h"
 #include <stdlib.h>
 
 class MapGenerator : public olc::PixelGameEngine
