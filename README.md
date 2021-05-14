@@ -1,2 +1,2 @@
-# Map_Generator
+# Bouncy Ball
 A bouncy ball in a box
