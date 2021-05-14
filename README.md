@@ -1,2 +1,2 @@
 # Map_Generator
-A randomly generated pixel map
+A bouncy ball in a box
