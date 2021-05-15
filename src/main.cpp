@@ -13,8 +13,8 @@ public:
     //Accel = speed/frame
     const double PI = 3.1415926;
     double gravityAccel = 0.4;
-    double resistance = 0.08;
-    double friction = .2;
+    double resistance = 0.05;
+    double friction = 0.2;
 
     double ballMass = 10.0; //Not used yet
 
@@ -46,15 +46,26 @@ public:
 
     bool OnUserUpdate(float fElapsedTime) override
     {
+
+        DrawString(ScreenWidth() - 40, 40,  std::to_string(ballYVelocity) + " " +  std::to_string(ballXVelocity));
+        /* Resistance Calculations */
+        if(ballYVelocity > 0){
+            ballYVelocity = ballYVelocity * (1 - resistance * ((ballSize + 25) / 35));
+        }
+        if(ballXVelocity != 0){
+            ballXVelocity = ballXVelocity * (1 - resistance * ((ballSize + 25) / 35));
+        }
         /* Modification Options */
         /* Changing the Size of the Ball Live */
         if (GetKey(olc::Key::R).bHeld) {
             if (ballSize < 100.0)
                 ballSize += 1;
+                ballYPos -= 1;
         }
         if (GetKey(olc::Key::F).bHeld) {
             if (ballSize > 1)
                 ballSize -= 1;
+                ballYPos += 1;
         }
         /* Modifying Gravity */
         if (GetKey(olc::Key::T).bHeld) {
@@ -64,6 +75,15 @@ public:
         if (GetKey(olc::Key::G).bHeld) {
             if (gravityAccel > -.1)
                 gravityAccel -= .01;
+        }
+        /* Modifying Resistance */
+        if (GetKey(olc::Key::Y).bHeld) {
+            if (resistance < .2)
+                resistance += .0005;
+        }
+        if (GetKey(olc::Key::H).bHeld) {
+            if (resistance > -.01)
+                resistance -= .0005;
         }
 
 
@@ -77,26 +97,30 @@ public:
 
 
         /* Jump */
-        if (GetKey(olc::Key::SPACE).bHeld && ballXPos > (double)ScreenWidth() - 11 - ballSize) {
-            ballXVelocity += 8.0;
-        }
-
         if (ballXPos > (double)ScreenWidth() - 10 - ballSize) {//Makes sure operation occurs at right wall level
             ballXPos = (double)ScreenWidth() - 10.0 - ballSize;
-            ballXVelocity = (ballXVelocity) * friction * -1.0;
+            ballXVelocity = (ballXVelocity) * (1 - friction) * -1.0;
         }
 
         if (ballXPos < 10 + ballSize) {//Makes sure operation occurs at left wall level
             ballXPos = 10.0 + ballSize;
-            ballXVelocity = (ballXVelocity) * friction * -1.0;
+            ballXVelocity = (ballXVelocity) * (1 - friction) * -1.0;
         }
 
-        if (ballYPos > (double)ScreenHeight() - 10 - ballSize) {//Makes sure operation occurs at ground level
-            ballYPos = (double)ScreenHeight() - 10 - ballSize;
-            ballYVelocity = (ballYVelocity) * friction * -1.0;
-            if (GetKey(olc::Key::SPACE).bHeld) {
-                ballYVelocity += 15.0;
+
+        if (ballYPos > (double)ScreenHeight() - 10.1 - ballSize) {//Makes sure operation occurs at ground level
+            if(ballYVelocity < 1 && ballYVelocity > -1) {
+                ballYPos = (double) ScreenHeight() - 10 - ballSize;
             }
+            ballYVelocity = (ballYVelocity) * (1 - friction) * -1.0;
+            if (GetKey(olc::Key::SPACE).bHeld) {
+                ballYVelocity += 20.0;
+            }
+        }
+
+        if (ballYPos < 10.1 + ballSize) {//Makes sure operation occurs at ceiling level
+            ballYPos = 10.0 + ballSize;
+            ballYVelocity = (ballYVelocity) * (1 - friction) * -1.0;
         }
 
         //Todo: fix these so they only modify the pos up to the location being bounced on and no further
@@ -110,7 +134,7 @@ public:
         }
 
 
-        Clear(olc::BLACK);
+        Clear(olc::DARK_CYAN);
 
         DrawLine(10, 10, ScreenWidth() - 10, 10, olc::WHITE);
         DrawLine(10, ScreenHeight() - 10, 10, 10, olc::WHITE);
@@ -128,8 +152,8 @@ public:
 };
 
 int main() {
-    int screenPixelsX = 512 * 2;
-    int screenPixelsY = 384 * 2;
+    int screenPixelsX = 1280;
+    int screenPixelsY = 720;
 
     MapGenerator map;
     if (map.Construct(screenPixelsX, screenPixelsY, 1, 1, false, true))
