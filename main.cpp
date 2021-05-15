@@ -1,3 +1,0 @@
-nt main() {
-	return 0;
-}

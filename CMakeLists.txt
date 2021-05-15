@@ -21,7 +21,7 @@ find_package(PGE)
 # List of all source files used to create the final executable
 set(
     FINDPGE_SOURCE_FILES
-    "${PROJECT_SOURCE_DIR}/src/main.cpp"
+    "src/main.cpp"
     "${PROJECT_SOURCE_DIR}/src/olcPixelGameEngine.cpp"
 )
 
