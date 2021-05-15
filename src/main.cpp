@@ -47,13 +47,12 @@ public:
     bool OnUserUpdate(float fElapsedTime) override
     {
 
-        DrawString(ScreenWidth() - 40, 40,  std::to_string(ballYVelocity) + " " +  std::to_string(ballXVelocity));
         /* Resistance Calculations */
         if(ballYVelocity > 0){
-            ballYVelocity = ballYVelocity * (1 - resistance * ((ballSize + 25) / 35));
+            ballYVelocity = ballYVelocity * (1 - resistance * ((ballSize + 30) / 35));
         }
         if(ballXVelocity != 0){
-            ballXVelocity = ballXVelocity * (1 - resistance * ((ballSize + 25) / 35));
+            ballXVelocity = ballXVelocity * (1 - resistance * ((ballSize + 30) / 35));
         }
         /* Modification Options */
         /* Changing the Size of the Ball Live */
@@ -141,6 +140,14 @@ public:
         DrawLine(10, ScreenHeight() - 10, ScreenWidth() - 10, ScreenHeight() - 10, olc::WHITE);
         DrawLine(ScreenWidth() - 10, 10, ScreenWidth() - 10, ScreenHeight() - 10, olc::WHITE);
 
+        DrawString(ScreenWidth() - 225, 25,
+                   "X Position: " + std::to_string(ballXPos) + "\n"+
+                   "Y Position: " + std::to_string(ballYPos) + "\n"+
+                   "Y - Velocity: " + std::to_string(ballYVelocity) + "\n"+
+                   "X - Velocity: " + std::to_string(ballXVelocity) + "\n"+
+                   "Ball Size: " + std::to_string(ballSize) + "\n"+
+                   "Air Resist: " + std::to_string(resistance) + "\n"+
+                   "Gravity: " + std::to_string(gravityAccel));
         FillCircle(ballXPos, ballYPos, ballSize, olc::WHITE);
         return true;
     }
