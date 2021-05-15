@@ -1,5 +1,5 @@
 #define OLC_PGE_APPLICATION
-#include "olcPixelGameEngine.h"
+#include "../include/olcPixelGameEngine.h"
 #include <stdlib.h>
 
 class MapGenerator : public olc::PixelGameEngine
@@ -30,8 +30,8 @@ public:
 };
 
 int main() {
-	int screenPixelsX = 512 * 2;
-	int screenPixelsY = 384 * 2;
+	int screenPixelsX = 512 / 2;
+	int screenPixelsY = 384 / 2;
 
 	MapGenerator map;
 	if (map.Construct(screenPixelsX, screenPixelsY, 1, 1, false, true))
