@@ -28,6 +28,27 @@ public:
 
     bool OnUserUpdate(float fElapsedTime) override
     {
+        /* Modification Options */
+        /* Changing the Size of the Ball Live */
+        if (GetKey(olc::Key::R).bHeld) {
+            if (ballSize < 100.0)
+                ballSize += 1;
+        }
+        if (GetKey(olc::Key::F).bHeld) {
+            if (ballSize > 1)
+                ballSize -= 1;
+        }
+        /* Modifying Gravity */
+        if (GetKey(olc::Key::T).bHeld) {
+            if (gravityAccel < 1)
+                gravityAccel += .01;
+        }
+        if (GetKey(olc::Key::G).bHeld) {
+            if (gravityAccel > -.1)
+                gravityAccel -= .01;
+        }
+
+
         /* Horizontal Traverse */
         if (GetKey(olc::Key::A).bHeld) {
             if (ballXPos < 10.0)
