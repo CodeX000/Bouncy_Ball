@@ -1,30 +1,5 @@
 "C:\Program Files\JetBrains\CLion 2021.1.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Admin\Documents\GitHub\Bouncy_Ball
--- The C compiler identification is GNU 10.3.0
--- The CXX compiler identification is GNU 10.3.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: C:/msys64/mingw64/bin/gcc.exe - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: C:/msys64/mingw64/bin/g++.exe - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
 -- Found olcPixelGameEngine version 2.15
--- Found OpenGL: opengl32   
 -- Configuring done
-CMake Error at CMakeLists.txt:29 (add_executable):
-  Cannot find source file:
-
-    C:/Users/Admin/Documents/GitHub/Bouncy_Ball/src/olcPixelGameEngine.cpp
-
-  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm
-  .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .ispc
-
-
-CMake Error at CMakeLists.txt:29 (add_executable):
-  No SOURCES given to target: FindPGE
-
-
-CMake Generate step failed.  Build files cannot be regenerated correctly.
+-- Generating done
+-- Build files have been written to: C:/Users/Admin/Documents/GitHub/Bouncy_Ball/cmake-build-debug

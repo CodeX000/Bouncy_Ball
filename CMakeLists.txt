@@ -20,8 +20,8 @@ find_package(PGE)
 
 # List of all source files used to create the final executable
 set(
-    FINDPGE_SOURCE_FILES
-    "src/main.cpp"
+        FINDPGE_SOURCE_FILES
+        "${PROJECT_SOURCE_DIR}/src/main.cpp"
 )
 
 # Creating our executable
