@@ -11,14 +11,32 @@ public:
     }
 public:
     //Accel = speed/frame
+    const double PI = 3.1415926;
     double gravityAccel = 0.4;
+    double resistance = 0.08;
+    double friction = .2;
+
+    double ballMass = 10.0; //Not used yet
 
     double ballXPos = 32.0;
-    double ballYPos = 32.0;
+    double ballXVelocity = 0;
+    double ballXAccel = .5;
 
-    double ballVertSpeed = 0;
+    double ballYPos = 32.0;
+    double ballYVelocity = 0;
+
+    double ballAngle = 0;
 
     int ballSize = 10;
+
+public:
+    double getMomentum(){ //Not used yet
+        return ballMass * (ballXVelocity);
+    }/*
+    void bounce(double objectAngle){
+        double adjustedAngle = (2 * PI) - objectAngle;
+        double exitAngle = adjustedAngle - 2 * objectAngle;
+    }*/
 
 public:
     bool OnUserCreate() override
@@ -51,30 +69,44 @@ public:
 
         /* Horizontal Traverse */
         if (GetKey(olc::Key::A).bHeld) {
-            if (ballXPos < 10.0)
-                ballXPos = ScreenWidth() - 10.0;
-            else
-                ballXPos -= 4.0;
+            ballXVelocity -= ballXAccel;
         }
         if (GetKey(olc::Key::D).bHeld) {
-            if (ballXPos > ScreenWidth() - 10.0)
-                ballXPos = 10.0;
-            else
-                ballXPos += 4.0;
+            ballXVelocity += ballXAccel;
         }
 
-        ballYPos -= ballVertSpeed;
 
         /* Jump */
-        if (ballYPos > (double)ScreenHeight() - 11 - ballSize) {//Makes sure operation occurs at ground level
-            ballYPos = (double)ScreenHeight() - 10.0 - ballSize;
-            ballVertSpeed = (ballVertSpeed * .4) * -1.0;
-            if (GetKey(olc::Key::W).bHeld) {
-                ballVertSpeed += 8.0;
+        if (GetKey(olc::Key::SPACE).bHeld && ballXPos > (double)ScreenWidth() - 11 - ballSize) {
+            ballXVelocity += 8.0;
+        }
+
+        if (ballXPos > (double)ScreenWidth() - 10 - ballSize) {//Makes sure operation occurs at right wall level
+            ballXPos = (double)ScreenWidth() - 10.0 - ballSize;
+            ballXVelocity = (ballXVelocity) * friction * -1.0;
+        }
+
+        if (ballXPos < 10 + ballSize) {//Makes sure operation occurs at left wall level
+            ballXPos = 10.0 + ballSize;
+            ballXVelocity = (ballXVelocity) * friction * -1.0;
+        }
+
+        if (ballYPos > (double)ScreenHeight() - 10 - ballSize) {//Makes sure operation occurs at ground level
+            ballYPos = (double)ScreenHeight() - 10 - ballSize;
+            ballYVelocity = (ballYVelocity) * friction * -1.0;
+            if (GetKey(olc::Key::SPACE).bHeld) {
+                ballYVelocity += 15.0;
             }
         }
-        if (ballYPos < (double)ScreenHeight() - 10.0 - ballSize) {
-            ballVertSpeed -= gravityAccel;
+
+        //Todo: fix these so they only modify the pos up to the location being bounced on and no further
+        ballYPos -= ballYVelocity;
+        ballXPos += ballXVelocity;
+
+        /* General Resistance + Gravity */
+
+        if(ballYPos < (double)ScreenHeight() - 11.0 - ballSize){//Todo: add terminal velocity based on resist and gravity
+            ballYVelocity -= gravityAccel; //Positive Y is up
         }
 
 
