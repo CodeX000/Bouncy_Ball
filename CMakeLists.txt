@@ -22,7 +22,6 @@ find_package(PGE)
 set(
     FINDPGE_SOURCE_FILES
     "src/main.cpp"
-    "${PROJECT_SOURCE_DIR}/src/olcPixelGameEngine.cpp"
 )
 
 # Creating our executable
